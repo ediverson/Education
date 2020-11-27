@@ -13,6 +13,7 @@ class UserDefaultsViewController: UIViewController {
     
     func greeting(){
         greetingLabel.text = "Привет \n \(String(describing: Persistance.shared.userSecondName ?? "")) \(String(describing: Persistance.shared.userName ?? ""))"
+        
     }
     
     @IBAction func greetingButton(_ sender: Any) {
