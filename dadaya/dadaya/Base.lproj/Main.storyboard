@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="E3G-RC-esz">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--User Defaults View Controller-->
+        <!--UserDef-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="UserDefaultsViewController" customModule="dadaya" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,6 +49,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="UserDef" id="ImG-Wn-T8A"/>
                     <connections>
                         <outlet property="greetingLabel" destination="5OL-Oq-Txq" id="L2y-af-2V6"/>
                         <outlet property="nameTextField" destination="9Aa-8V-wzs" id="rZ4-CB-QeM"/>
@@ -57,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="14" y="89"/>
+            <point key="canvasLocation" x="923.1884057971015" y="88.392857142857139"/>
         </scene>
         <!--Core Table View Controller-->
         <scene sceneID="hfZ-zr-hn9">
@@ -84,9 +85,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="SM1-Pb-VQJ">
                         <nil key="title"/>
-                        <textField key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="4PF-y6-wXy">
+                        <textField key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="4PF-y6-wXy">
                             <rect key="frame" x="12" y="5" width="343.5" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
@@ -102,12 +104,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cQZ-LG-0Zb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="89"/>
+            <point key="canvasLocation" x="2860.8695652173915" y="88.392857142857139"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--CoreData-->
         <scene sceneID="K3g-24-cix">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l5d-G5-Kc4" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="CoreData" id="3PI-4G-BG2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d0b-jK-Pqe">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -120,7 +123,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZK-Dh-Plh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1042" y="88"/>
+            <point key="canvasLocation" x="1950.7246376811595" y="87.723214285714278"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="z4L-AL-7gx">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="E3G-RC-esz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lVq-7e-p0O">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="l5d-G5-Kc4" kind="relationship" relationship="viewControllers" id="CIc-5V-JRa"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="0y0-yi-mzb"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ndH-nx-3Rf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="13.043478260869566" y="87.723214285714278"/>
         </scene>
     </scenes>
     <resources>
