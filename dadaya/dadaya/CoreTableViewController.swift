@@ -103,6 +103,17 @@ class CoreTableViewController: UITableViewController, NSFetchedResultsController
     }
 
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.none{
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }else{
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        
+        }
+        tableView.reloadData()
+    }
+
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let user = fetchedResultsController.object(at: indexPath)
