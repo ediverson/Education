@@ -1,30 +1,9 @@
 import UIKit
 import CoreData
 
-var persistentContainer: NSPersistentContainer = {
-    let container = NSPersistentContainer(name: "dadaya")
-    container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-        if let error = error as NSError? {
-            fatalError("Unresolved error \(error), \(error.userInfo)")
-        }
-    })
-    return container
-}()
-
-func saveContext () {
-    let context = persistentContainer.viewContext
-    if context.hasChanges {
-        do {
-            try context.save()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-    }
-}
-
 class CoreTableViewController: UITableViewController, NSFetchedResultsControllerDelegate{
-        
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     @IBOutlet weak var userNameTextField: UITextField!
     
     var fetchedResultsController: NSFetchedResultsController<User>!
@@ -38,25 +17,26 @@ class CoreTableViewController: UITableViewController, NSFetchedResultsController
         fetchRequest.fetchLimit = 15
         fetchRequest.sortDescriptors = [sotrDescritor]
 
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
         try! fetchedResultsController.performFetch()
         
     }
 
-    
+    // MARK: - Button
     @IBAction func addButton(_ sender: Any) {
-        let user = User(context: persistentContainer.viewContext)
-        user.name = "User: \(userNameTextField.text ?? "noname")"
+        let user = User(context: appDelegate.persistentContainer.viewContext)
+        user.name = "User: \(userNameTextField.text ?? "")"
         
         fetchedResultsController.delegate = self
         
-        saveContext()
-        tableView.reloadData()
+        appDelegate.saveContext()
         userNameTextField.text = ""
+        
+        tableView.reloadData()
     }
     
+    // MARK: - Controller
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
@@ -104,11 +84,13 @@ class CoreTableViewController: UITableViewController, NSFetchedResultsController
 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.none{
+        var didComplite = fetchedResultsController.object(at: indexPath).complete
+        if didComplite == false{
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            didComplite = true
         }else{
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        
+            didComplite = false
         }
         tableView.reloadData()
     }
@@ -117,9 +99,9 @@ class CoreTableViewController: UITableViewController, NSFetchedResultsController
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let user = fetchedResultsController.object(at: indexPath)
-            persistentContainer.viewContext.delete(user)
+            appDelegate.persistentContainer.viewContext.delete(user)
             
-            saveContext()
+            appDelegate.saveContext()
         }
     }
 }

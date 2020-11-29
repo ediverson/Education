@@ -2,7 +2,7 @@
 //  User+CoreDataClass.swift
 //  dadaya
 //
-//  Created by Антон Старков on 27.11.2020.
+//  Created by Антон Старков on 29.11.2020.
 //
 //
 
