@@ -3,6 +3,7 @@ import CoreData
 
 class CoreTableViewController: UITableViewController, NSFetchedResultsControllerDelegate{
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var users: [User] = []
     
     @IBOutlet weak var userNameTextField: UITextField!
     
@@ -27,13 +28,15 @@ class CoreTableViewController: UITableViewController, NSFetchedResultsController
     @IBAction func addButton(_ sender: Any) {
         let user = User(context: appDelegate.persistentContainer.viewContext)
         user.name = "User: \(userNameTextField.text ?? "")"
+        user.complite = false
         
         fetchedResultsController.delegate = self
         
         appDelegate.saveContext()
         userNameTextField.text = ""
         
-        tableView.reloadData()
+        self.tableView.reloadData()
+        
     }
     
     // MARK: - Controller
@@ -77,6 +80,7 @@ class CoreTableViewController: UITableViewController, NSFetchedResultsController
 
         let user = fetchedResultsController.object(at: indexPath)
         cell.textLabel?.text = user.name
+        user.complite = false
         
 
         return cell
@@ -84,15 +88,31 @@ class CoreTableViewController: UITableViewController, NSFetchedResultsController
 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var didComplite = fetchedResultsController.object(at: indexPath).complete
-        if didComplite == false{
+        let user = PersistantManager.share.fetch(User.self)
+        self.users = user
+        
+        var didComplite = fetchedResultsController.object(at: indexPath).complite
+        
+        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.none{
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-            didComplite = true
+            
+            for var (index, obj) in users.enumerated(){
+                index = indexPath.row
+                obj.complite = true
+                print("объект", obj, index)
+            }
+            
         }else{
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
-            didComplite = false
+            for var (index, obj) in users.enumerated(){
+                index = indexPath.row
+                obj.complite = false
+                print("объект", obj, index)
+            }
         }
-        tableView.reloadData()
+        PersistantManager.share.saveContext()
+        
+        self.tableView.reloadData()
     }
 
     
@@ -100,7 +120,7 @@ class CoreTableViewController: UITableViewController, NSFetchedResultsController
         if editingStyle == .delete {
             let user = fetchedResultsController.object(at: indexPath)
             appDelegate.persistentContainer.viewContext.delete(user)
-            
+
             appDelegate.saveContext()
         }
     }

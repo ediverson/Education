@@ -17,7 +17,7 @@ extension User {
     }
 
     @NSManaged public var name: String?
-    @NSManaged public var complete: Bool
+    @NSManaged public var complite: Bool
 
 }
 
