@@ -80,7 +80,7 @@
                     <navigationItem key="navigationItem" id="yTg-Rh-bzS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qIn-Yu-PhM">
                             <connections>
-                                <action selector="addButton:" destination="odD-PC-RoF" id="Xp0-XD-IC7"/>
+                                <action selector="addButton:" destination="odD-PC-RoF" id="zJC-Ne-SIm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -91,6 +91,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4N-cI-aW4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2724.6376811594205" y="87.723214285714278"/>
+        </scene>
+        <!--Realm View Controller-->
+        <scene sceneID="ehK-FS-eNj">
+            <objects>
+                <viewController id="2Ge-de-d9q" customClass="RealmViewController" customModule="dadaya" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XIU-vy-bIV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iSc-NU-ekh">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellNotes" textLabel="t0u-LI-RWu" style="IBUITableViewCellStyleDefault" id="xYt-bI-1rq">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xYt-bI-1rq" id="0eY-rg-Wp5">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t0u-LI-RWu">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2Ge-de-d9q" id="c8f-0t-R3x"/>
+                                    <outlet property="delegate" destination="2Ge-de-d9q" id="Yb9-Eh-bxb"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lm1-xx-MeQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4lE-Np-xha">
+                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="zPv-sc-qnD">
+                            <connections>
+                                <action selector="organizeButton:" destination="2Ge-de-d9q" id="cyX-0S-xCR"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="j21-MO-3QS">
+                            <connections>
+                                <action selector="addButton:" destination="2Ge-de-d9q" id="fZB-WH-qmZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="iSc-NU-ekh" id="y2A-CU-u4M"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NHb-Mc-29d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4757.971014492754" y="87.723214285714278"/>
         </scene>
         <!--CoreData-->
         <scene sceneID="K3g-24-cix">
@@ -124,11 +184,31 @@
                     <connections>
                         <segue destination="l5d-G5-Kc4" kind="relationship" relationship="viewControllers" id="CIc-5V-JRa"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="0y0-yi-mzb"/>
+                        <segue destination="jwq-MC-jls" kind="relationship" relationship="viewControllers" id="cWw-wn-daP"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ndH-nx-3Rf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="13.043478260869566" y="87.723214285714278"/>
+        </scene>
+        <!--Realm-->
+        <scene sceneID="ydn-5w-BKp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jwq-MC-jls" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Realm" id="n8G-v1-hVp"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rVj-yU-t1d">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2Ge-de-d9q" kind="relationship" relationship="rootViewController" id="QvC-Yc-2bM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PfM-qa-gz3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3847.826086956522" y="87.723214285714278"/>
         </scene>
     </scenes>
     <resources>

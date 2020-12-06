@@ -2,41 +2,48 @@ import UIKit
 import CoreData
 
 
-class CoreViewController: UIViewController {
+class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
     @IBOutlet weak var tableView: UITableView!
     var people: [NSManagedObject] = []
+    var entity = "Person"
+    
+    var fetchedResultsController = CoreDataManager.share.fetchedResultsController(entity: "Person", keyForSort: "name")
+
 
     func saveNameAndState(name: String, state: Bool){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let entity = NSEntityDescription.entity(forEntityName: "Person", in: context)
-        let person = NSManagedObject.init(entity: entity!, insertInto: context)
+        let person = NSManagedObject.init(entity: CoreDataManager.share.entityForName(entityName: entity), insertInto: CoreDataManager.share.persistentContainer.viewContext)
         
         person.setValue(name, forKey: "name")
         person.setValue(state, forKey: "state")
         people.append(person)
         
-        appDelegate.saveContext()
+        CoreDataManager.share.saveContext()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         
-        let fetchedRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
+        let fetchedRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         
         do{
-            people = try (context.fetch(fetchedRequest) as? [NSManagedObject])!
+            people = try (CoreDataManager.share.persistentContainer.viewContext.fetch(fetchedRequest) as? [NSManagedObject])!
         }catch{
             print(error)
         }
+        
+        print(CoreDataManager.share.persistentContainer.viewContext)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print(error)
+        }
+        
         title = "\"The List\""
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         }
@@ -65,9 +72,7 @@ extension CoreViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         people.count
     }
-    
-    
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         
@@ -96,8 +101,15 @@ extension CoreViewController: UITableViewDataSource, UITableViewDelegate{
         }
         print(person)
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.saveContext()
+        CoreDataManager.share.saveContext()
         tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let object = fetchedResultsController.object(at: indexPath as IndexPath) as! NSManagedObject
+            CoreDataManager.share.persistentContainer.viewContext.delete(object)
+            CoreDataManager.share.saveContext()
+        }
     }
 }
