@@ -2,13 +2,11 @@ import UIKit
 import CoreData
 
 
-class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
+class CoreViewController: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     var people: [NSManagedObject] = []
     var entity = "Person"
     
-    var fetchedResultsController = CoreDataManager.share.fetchedResultsController(entity: "Person", keyForSort: "name")
-
 
     func saveNameAndState(name: String, state: Bool){
         let person = NSManagedObject.init(entity: CoreDataManager.share.entityForName(entityName: entity), insertInto: CoreDataManager.share.persistentContainer.viewContext)
@@ -17,7 +15,8 @@ class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
         person.setValue(state, forKey: "state")
         people.append(person)
             
-        CoreDataManager.share.saveContext()        
+        CoreDataManager.share.saveContext()
+        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,12 +34,6 @@ class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchedResultsController.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print(error)
-        }
         
         title = "\"The List\""
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -63,16 +56,7 @@ class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type{
-        case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .fade)
-        default:
-            break
-        }
-        tableView.reloadData()
-    }
+
 }
 
 
@@ -81,13 +65,11 @@ class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
     //MARK: - Table Extension
 extension CoreViewController: UITableViewDataSource, UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sections = fetchedResultsController.sections?[section]
-        
-        return sections?.numberOfObjects ?? 0
+        return people.count
     }
     
 
@@ -95,7 +77,7 @@ extension CoreViewController: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         
         let person = people[indexPath.row]
-        
+                
         cell.textLabel?.text = person.value(forKey: "name") as? String
         if person.value(forKey: "state") as? Bool == true{
             cell.accessoryType = .checkmark
@@ -123,9 +105,11 @@ extension CoreViewController: UITableViewDataSource, UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let object = people[indexPath.row]
+            CoreDataManager.share.persistentContainer.viewContext.delete(object)
+            people.remove(at: indexPath.row)
             
-            let object = fetchedResultsController.object(at: indexPath)
-            CoreDataManager.share.persistentContainer.viewContext.delete(object as! NSManagedObject)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             
             CoreDataManager.share.saveContext()
         }
