@@ -72,6 +72,10 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="odD-PC-RoF" id="R17-ak-H6L"/>
+                                    <outlet property="delegate" destination="odD-PC-RoF" id="La3-T1-w0t"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yko-OJ-Atg"/>
@@ -85,7 +89,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="Zm8-Yf-PQ6" id="wcE-cR-OJf"/>
+                        <outlet property="tableView" destination="Zm8-Yf-PQ6" id="DUY-wM-riv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4N-cI-aW4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

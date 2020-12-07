@@ -16,9 +16,8 @@ class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
         person.setValue(name, forKey: "name")
         person.setValue(state, forKey: "state")
         people.append(person)
-        
-        CoreDataManager.share.saveContext()
-        
+            
+        CoreDataManager.share.saveContext()        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +31,6 @@ class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
             print(error)
         }
         
-        print(CoreDataManager.share.persistentContainer.viewContext)
     }
     
     override func viewDidLoad() {
@@ -65,19 +63,38 @@ class CoreViewController: UIViewController, NSFetchedResultsControllerDelegate{
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type{
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
 }
+
+
+
 
     //MARK: - Table Extension
 extension CoreViewController: UITableViewDataSource, UITableViewDelegate{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        people.count
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 0
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let sections = fetchedResultsController.sections?[section]
+        
+        return sections?.numberOfObjects ?? 0
+    }
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         
         let person = people[indexPath.row]
-        
         
         cell.textLabel?.text = person.value(forKey: "name") as? String
         if person.value(forKey: "state") as? Bool == true{
@@ -99,17 +116,19 @@ extension CoreViewController: UITableViewDataSource, UITableViewDelegate{
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
             person.setValue(false, forKey: "state")
         }
-        print(person)
         
         CoreDataManager.share.saveContext()
         tableView.reloadData()
     }
-    
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let object = fetchedResultsController.object(at: indexPath as IndexPath) as! NSManagedObject
-            CoreDataManager.share.persistentContainer.viewContext.delete(object)
+            
+            let object = fetchedResultsController.object(at: indexPath)
+            CoreDataManager.share.persistentContainer.viewContext.delete(object as! NSManagedObject)
+            
             CoreDataManager.share.saveContext()
         }
+        tableView.reloadData()
     }
 }

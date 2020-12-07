@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/anton/Desktop/vev/dadaya/dadaya/Person+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/anton/Desktop/vev/dadaya/dadaya/Person+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:dadaya.xcodeproj">
    </FileRef>
    <FileRef
