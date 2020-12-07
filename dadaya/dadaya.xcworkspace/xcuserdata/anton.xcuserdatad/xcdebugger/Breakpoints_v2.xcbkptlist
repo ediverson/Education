@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D7593B8E-D79E-4649-8CDB-A012F2C5D9A0"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CD404D8D-2075-40B3-8D0C-DC5303405587"
+            shouldBeEnabled = "No"
+            nameForDebugger = "entityDisc"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "dadaya/CoreViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "saveNameAndState(name:state:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
