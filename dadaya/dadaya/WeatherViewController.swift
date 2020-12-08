@@ -44,11 +44,7 @@ class WeatherViewController: UIViewController{
         let realm = try! Realm()
         weathers = realm.objects(WData.self)
         
-        if weathers != nil{
-            update(data: weathers.first!)
-        }
-        
-        print(self.weathers.count)
+        update(data: weathers.first ?? weather)
         
     }
 
@@ -60,14 +56,14 @@ class WeatherViewController: UIViewController{
                 do{
                     self.weather = try decoder.decode(WData.self, from: response.data!)
                     DispatchQueue.main.async {
-                        self.update(data: self.weathers.first!)
+                        self.update(data: self.weathers.first ?? self.weather)
                         
                        try! self.realm.write(){
                         self.realm.add(self.weather)
                        }
                         
                         try! self.realm.write(){
-                            if self.weathers.count > 1{
+                            if self.weathers.count > 2{
                                 self.realm.delete(self.weathers.first!)
                             }
                         }
@@ -80,18 +76,26 @@ class WeatherViewController: UIViewController{
     }
   
     
-    var isTapped = false
+
     
     @IBAction func refreshButton(_ sender: Any) {
+        let value = Tap()
         
-        if isTapped == false{
+        if weathers != nil{
+        
+        if value.isTapped == false{
             loadWeather(for: "https://api.openweathermap.org/data/2.5/weather?q=malibu&units=metric&lang=ru&appid=43449a0aa8d8e83d8e3b52f61122599f")
-            isTapped = true
-            print(isTapped)
+            try! self.realm.write(){
+                value.isTapped = true
+            }
+            print(value.isTapped)
         }else{
             loadWeather(for: "https://api.openweathermap.org/data/2.5/weather?q=moscow&units=metric&lang=ru&appid=43449a0aa8d8e83d8e3b52f61122599f")
-            isTapped = false
-            print(isTapped)
+            try! self.realm.write(){
+                value.isTapped = false
+            }
+            print(value.isTapped)
+            }
         }
     }
 }

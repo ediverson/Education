@@ -32,4 +32,9 @@ class WData: Object, Codable{
     @objc dynamic var main: Main? = Main()
     @objc dynamic var wind: Wind? = Wind()
     @objc dynamic var dt: Double = 0.0
+    
+}
+
+class Tap: Object {
+    @objc dynamic var isTapped: Bool = false
 }
