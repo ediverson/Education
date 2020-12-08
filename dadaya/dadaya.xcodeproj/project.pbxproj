@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3A3C5F46257CF0F3007D3C83 /* dadaya.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 3A9C3AE4257108DF00A3D051 /* dadaya.xcdatamodeld */; };
 		3A3C5F49257CF24D007D3C83 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3C5F48257CF24D007D3C83 /* CoreDataManager.swift */; };
+		3A7E3FC6257FB5C900F89900 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E3FC5257FB5C900F89900 /* WeatherViewController.swift */; };
+		3A7E3FCE257FB64800F89900 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E3FCD257FB64800F89900 /* WeatherData.swift */; };
 		3A99CCE92571152D0077D030 /* CoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A99CCE82571152D0077D030 /* CoreViewController.swift */; };
 		3A9C3ADC257108DF00A3D051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9C3ADB257108DF00A3D051 /* AppDelegate.swift */; };
 		3A9C3ADE257108DF00A3D051 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9C3ADD257108DF00A3D051 /* SceneDelegate.swift */; };
@@ -27,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		3A3C5F48257CF24D007D3C83 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		3A7E3FC5257FB5C900F89900 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherViewController.swift; path = /Users/anton/Desktop/vev/dadaya/dadaya/WeatherViewController.swift; sourceTree = "<absolute>"; };
+		3A7E3FCD257FB64800F89900 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		3A99CCE82571152D0077D030 /* CoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreViewController.swift; sourceTree = "<group>"; };
 		3A9C3AD8257108DF00A3D051 /* dadaya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dadaya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9C3ADB257108DF00A3D051 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 				3A9C3ADB257108DF00A3D051 /* AppDelegate.swift */,
 				3A9C3ADD257108DF00A3D051 /* SceneDelegate.swift */,
 				3A9C3ADF257108DF00A3D051 /* ViewController.swift */,
+				3A7E3FC5257FB5C900F89900 /* WeatherViewController.swift */,
+				3A7E3FCD257FB64800F89900 /* WeatherData.swift */,
 				3A9C3AF92571093600A3D051 /* UserDefaults */,
 				3AA4B239257CEC89001E4CB4 /* Realm */,
 				3AA4B237257CEC4B001E4CB4 /* CoreData */,
@@ -266,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA4B23B257CECBB001E4CB4 /* Tasks.swift in Sources */,
+				3A7E3FC6257FB5C900F89900 /* WeatherViewController.swift in Sources */,
 				3A9C3AE0257108DF00A3D051 /* ViewController.swift in Sources */,
 				3AE44C2A257E2E6600B17C4A /* Person+CoreDataClass.swift in Sources */,
 				3A9C3ADC257108DF00A3D051 /* AppDelegate.swift in Sources */,
@@ -276,6 +283,7 @@
 				3A9C3ADE257108DF00A3D051 /* SceneDelegate.swift in Sources */,
 				3A9C3AF72571092D00A3D051 /* Persistance.swift in Sources */,
 				3AE44C2B257E2E6600B17C4A /* Person+CoreDataProperties.swift in Sources */,
+				3A7E3FCE257FB64800F89900 /* WeatherData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
