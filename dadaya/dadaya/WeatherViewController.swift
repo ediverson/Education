@@ -11,7 +11,6 @@ class WeatherViewController: UIViewController{
     @IBOutlet weak var tempMaxLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var windSpeedLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var feelsLikeLabel: UILabel!
     
     var weather = WData()
@@ -27,7 +26,6 @@ class WeatherViewController: UIViewController{
         tempMaxLabel.text = "Мин. температура \n" + data.main!.tempMax.description + "°"
         feelsLikeLabel.text = "Средняя температура \n" + data.main!.feelsLike.description + "°"
         windSpeedLabel.text = "Скорость ветра \n" + data.wind!.speed.description + " м/с"
-//        descriptionLabel.text = "\(weather.weather[0].description)"
         dateLabel.text = "Дата \n\(dateFormatter.string(from: Date(timeIntervalSinceReferenceDate: data.dt)))"
         
     }
@@ -56,18 +54,20 @@ class WeatherViewController: UIViewController{
                 do{
                     self.weather = try decoder.decode(WData.self, from: response.data!)
                     DispatchQueue.main.async {
-                        self.update(data: self.weathers.first ?? self.weather)
-                        
+                        print("1",self.weathers.last?.name, self.weathers.count)
                        try! self.realm.write(){
                         self.realm.add(self.weather)
                        }
-                        
+                        print("2",self.weathers.last?.name, self.weathers.count)
                         try! self.realm.write(){
-                            if self.weathers.count > 2{
+                            if self.weathers.count > 1{
                                 self.realm.delete(self.weathers.first!)
                             }
                         }
-                        print(self.weathers.first?.name, api)
+                        
+                        self.update(data: self.weathers.last ?? self.weather)
+
+                        print("3",self.weathers.last?.name, self.weathers.count)
                     }
                 } catch{
                     print(error)
@@ -79,24 +79,20 @@ class WeatherViewController: UIViewController{
 
     
     @IBAction func refreshButton(_ sender: Any) {
-        let value = Tap()
-        
+        print(Tap.shere.isTapped)
         if weathers != nil{
-        
-        if value.isTapped == false{
+            
+            if Tap.shere.isTapped == false{
             loadWeather(for: "https://api.openweathermap.org/data/2.5/weather?q=malibu&units=metric&lang=ru&appid=43449a0aa8d8e83d8e3b52f61122599f")
-            try! self.realm.write(){
-                value.isTapped = true
-            }
-            print(value.isTapped)
-        }else{
+
+            Tap.shere.isTapped = true
+        }else if Tap.shere.isTapped == true{
             loadWeather(for: "https://api.openweathermap.org/data/2.5/weather?q=moscow&units=metric&lang=ru&appid=43449a0aa8d8e83d8e3b52f61122599f")
-            try! self.realm.write(){
-                value.isTapped = false
-            }
-            print(value.isTapped)
+            Tap.shere.isTapped = false
+            
             }
         }
+        print(Tap.shere.isTapped)
     }
 }
 

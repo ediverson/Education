@@ -273,12 +273,6 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Eh-BC-Kll">
-                                <rect key="frame" x="177.5" y="424" width="59" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjA-kV-fiy">
                                 <rect key="frame" x="177.5" y="258" width="59" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -299,7 +293,6 @@
                         <viewLayoutGuide key="safeArea" id="E4M-FA-xzF"/>
                         <color key="backgroundColor" systemColor="systemIndigoColor"/>
                         <constraints>
-                            <constraint firstItem="4Eh-BC-Kll" firstAttribute="centerX" secondItem="igp-Gh-y9o" secondAttribute="centerX" id="1p8-8N-Mp9"/>
                             <constraint firstItem="rjA-kV-fiy" firstAttribute="leading" secondItem="pFt-0v-401" secondAttribute="leading" id="7QI-ah-3UC"/>
                             <constraint firstItem="pFt-0v-401" firstAttribute="centerX" secondItem="4YF-N9-fs1" secondAttribute="centerX" id="7VI-JA-U0O"/>
                             <constraint firstItem="efr-Bt-F39" firstAttribute="centerX" secondItem="igp-Gh-y9o" secondAttribute="centerX" id="9aS-iL-ZuV"/>
@@ -317,7 +310,6 @@
                             <constraint firstItem="4YF-N9-fs1" firstAttribute="centerX" secondItem="igp-Gh-y9o" secondAttribute="centerX" id="m7Y-d3-6xh"/>
                             <constraint firstItem="4YF-N9-fs1" firstAttribute="top" secondItem="E4M-FA-xzF" secondAttribute="top" id="ngW-mn-8cI"/>
                             <constraint firstItem="pFt-0v-401" firstAttribute="top" secondItem="4YF-N9-fs1" secondAttribute="bottom" constant="20" id="nzu-4y-11l"/>
-                            <constraint firstItem="4Eh-BC-Kll" firstAttribute="top" secondItem="R6f-NN-1xj" secondAttribute="bottom" constant="40" id="sbd-I0-CC7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Weather" id="5MF-8P-K22">
@@ -330,7 +322,6 @@
                     <connections>
                         <outlet property="cityNameLabel" destination="4YF-N9-fs1" id="d2w-mM-6HU"/>
                         <outlet property="dateLabel" destination="efr-Bt-F39" id="luR-co-2r2"/>
-                        <outlet property="descriptionLabel" destination="4Eh-BC-Kll" id="0du-Tq-lem"/>
                         <outlet property="feelsLikeLabel" destination="rjA-kV-fiy" id="Q2y-Ne-Sdk"/>
                         <outlet property="pressureLabel" destination="hhK-JV-Lde" id="flx-fL-wUG"/>
                         <outlet property="tempLabel" destination="pFt-0v-401" id="oRQ-9K-Vdn"/>

@@ -35,6 +35,17 @@ class WData: Object, Codable{
     
 }
 
-class Tap: Object {
-    @objc dynamic var isTapped: Bool = false
+class Tap {
+    
+    static let shere = Tap()
+    
+    private let kTappedKey = "Tap.kTappedKey"
+    private let kSecondUserNameKey = "Persistance.kSecondUserNameKey"
+    
+    
+    var isTapped: Bool? {
+        set { UserDefaults.standard.set(newValue, forKey: kTappedKey) }
+        get { return UserDefaults.standard.bool(forKey: kTappedKey)}
+    }
+    
 }
