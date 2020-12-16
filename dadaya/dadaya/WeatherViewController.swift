@@ -4,37 +4,45 @@ import RealmSwift
 
 class WeatherViewController: UIViewController{
     
-    @IBOutlet weak var cityNameLabel: UILabel!
-    @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var pressureLabel: UILabel!
-    @IBOutlet weak var tempMinLabel: UILabel!
-    @IBOutlet weak var tempMaxLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var windSpeedLabel: UILabel!
-    @IBOutlet weak var feelsLikeLabel: UILabel!
-    
+    //MARK: - Values
     var weather = WData()
     let realm = try! Realm()
     var weathers: Results<WData>!
+    let dateFormatter = DateFormatter()
     
+    //MARK: - Outlets
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var feelsLikeLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var tempMaxLabel: UILabel!
+    @IBOutlet weak var tempMinLabel: UILabel!
+    @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var windSpeedLabel: UILabel!
+    
+    //MARK: - View creator
     func update(data: WData){
-
-        cityNameLabel.text = data.name
-        tempLabel.text = "Температура \n" + data.main!.temp.description + "°"
-        pressureLabel.text = "Давление \n" + data.main!.pressure.description + " мм рт. ст."
-        tempMinLabel.text = "Макс. температура \n" + data.main!.tempMin.description + "°"
-        tempMaxLabel.text = "Мин. температура \n" + data.main!.tempMax.description + "°"
-        feelsLikeLabel.text = "Средняя температура \n" + data.main!.feelsLike.description + "°"
-        windSpeedLabel.text = "Скорость ветра \n" + data.wind!.speed.description + " м/с"
-        dateLabel.text = "Дата \n\(dateFormatter.string(from: Date(timeIntervalSinceReferenceDate: data.dt)))"
         
+        if data == weather{
+            cityNameLabel.text = "No data \n Press refresh button"
+            cityNameLabel.font = UIFont(name: "System", size: 20)
+        }else if weathers != nil{
+//            cityNameLabel.font = UIFont(name: "System", size: 45)
+            cityNameLabel.text = data.name
+            dateLabel.text = "Дата \n \(dateFormatter.string(from: Date(timeIntervalSinceReferenceDate: data.dt)))"
+            feelsLikeLabel.text = "Средняя температура \n \(data.main!.feelsLike) °"
+            tempLabel.text = "Температура \n \(data.main!.temp) °"
+            tempMaxLabel.text = "Мин. температура \n \(data.main!.tempMax) °"
+            tempMinLabel.text = "Макс. температура \n \(data.main!.tempMin) °"
+            pressureLabel.text = "Давление \n \(data.main!.pressure) мм рт. ст."
+            windSpeedLabel.text = "Скорость ветра \n \(data.wind!.speed) м/с"
+        }
     }
     
-    let dateFormatter = DateFormatter()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         dateFormatter.locale = Locale(identifier: "ru_RU")
@@ -43,31 +51,26 @@ class WeatherViewController: UIViewController{
         weathers = realm.objects(WData.self)
         
         update(data: weathers.first ?? weather)
-        
     }
-
+    
+    //MARK: - JSON method
     func loadWeather(for api: String){
         Alamofire.request(api).responseJSON{ response in
-//            sleep(5)
                 let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                 do{
                     self.weather = try decoder.decode(WData.self, from: response.data!)
                     DispatchQueue.main.async {
-                        print("1",self.weathers.last?.name, self.weathers.count)
-                       try! self.realm.write(){
-                        self.realm.add(self.weather)
-                       }
-                        print("2",self.weathers.last?.name, self.weathers.count)
+                        
+                        try! self.realm.write(){
+                            self.realm.add(self.weather)
+                        }
                         try! self.realm.write(){
                             if self.weathers.count > 1{
                                 self.realm.delete(self.weathers.first!)
                             }
                         }
-                        
                         self.update(data: self.weathers.last ?? self.weather)
-
-                        print("3",self.weathers.last?.name, self.weathers.count)
                     }
                 } catch{
                     print(error)
@@ -77,9 +80,8 @@ class WeatherViewController: UIViewController{
   
     
 
-    
+    //MARK: - Create button
     @IBAction func refreshButton(_ sender: Any) {
-        print(Tap.shere.isTapped)
         if weathers != nil{
             
             if Tap.shere.isTapped == false{
@@ -92,7 +94,7 @@ class WeatherViewController: UIViewController{
             
             }
         }
-        print(Tap.shere.isTapped)
+        print(Tap.shere.isTapped!)
     }
 }
 
