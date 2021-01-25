@@ -94,7 +94,6 @@ class WeatherViewController: UIViewController{
             
             }
         }
-        print(Tap.shere.isTapped!)
     }
 }
 
