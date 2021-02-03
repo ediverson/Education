@@ -14,7 +14,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.isUserInteractionEnabled = true
-
     }
 // Функция для генерации кнопок
     func createButtons(at x: CGFloat, _ y: CGFloat) {
