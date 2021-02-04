@@ -8,12 +8,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     let pointX = CGFloat(Int.random(in: 20...414))
     let pointY = CGFloat(Int.random(in: 20...500))
 
+    @IBOutlet weak var assistentFace: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var infoLable: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.isUserInteractionEnabled = true
+        assistentFace.setImage(UIImage(named: "Waiting"), for: .normal)
     }
 // Функция для генерации кнопок
     func createButtons(at x: CGFloat, _ y: CGFloat) {
@@ -31,11 +33,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
 // Просим ассистента показать доступные кнопки. Тут я сделал через рандомные точки, чтобы кнопки появлялись в разных местах, так как просили без ML моделей, а так надо, конечно, задавать точки X и Y в соответствии с найдеными объектами на фото
     @IBAction func searchButton(_ sender: Any) {
+        
         if imageView.image != .none {
             createButtons(at: pointX, pointY)
             infoLable.text = " Я готов "
+            assistentFace.setImage(UIImage(named: "Hello"), for: .normal)
         } else {
             infoLable.text = " Жду фото "
+            assistentFace.setImage(UIImage(named: "Waiting"), for: .normal)
         }
     }
     
@@ -45,8 +50,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         
         if value % 2 == 1 {
             infoLable.text = " О, это я знаю "
+            assistentFace.setImage(UIImage(named: "I know it"), for: .normal)
         } else {
             infoLable.text = " Такого еще не встречал "
+            assistentFace.setImage(UIImage(named: "I dont know it"), for: .normal)
         }
      }
     
