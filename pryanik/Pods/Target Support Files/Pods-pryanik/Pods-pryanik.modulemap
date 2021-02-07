@@ -1,0 +1,6 @@
+framework module Pods_pryanik {
+  umbrella header "Pods-pryanik-umbrella.h"
+
+  export *
+  module * { export * }
+}
