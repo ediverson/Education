@@ -1,0 +1,8 @@
+target 'pryanik' do
+
+use_frameworks!
+
+pod 'Alamofire'
+pod 'AlamofireImage'
+
+end
