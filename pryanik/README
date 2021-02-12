@@ -8,5 +8,4 @@
 Архитектура: MVVM
 Данные получаем через: Alamofire
 Верстка: большая часть через storyboard, но есть и через код
-
 Структура JSON: https://pryaniky.com/static/json/sample.json
