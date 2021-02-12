@@ -10,7 +10,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Shrek" // ;)
+        title = "Shrek"
         
         model.request()
         model.vc = self
@@ -24,20 +24,18 @@ class ViewController: UIViewController {
         
         if parameter.data.text != nil {
             vc.text = parameter.data.text!
-            
         }else {
             vc.text = ""
-            
         }
         
         if parameter.data.variants != nil{
                 for el in parameter.data.variants!{
                     vc.selectorItems.append(String(el.id))
-                    vc.selectorText.append(el.text)
+                    vc.selectorText!.append(el.text)
                 }
             vc.createSegment()
-            
         }
+        
         guard parameter.data.url != nil  else { return }
         let url = URL(string: parameter.data.url!)
         vc.pic = url

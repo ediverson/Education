@@ -10,7 +10,7 @@ class InfoViewController: UIViewController {
     var name = ""
     var text = ""
     var pic: URL?
-    var selectorText: [String] = []
+    var selectorText: [String]? = []
     var selectorItems: [String] = []
     
     override func viewDidLoad() {
@@ -21,8 +21,8 @@ class InfoViewController: UIViewController {
         nameLabel.text = name
         textLabel.text = text
         updateView()
-        
     }
+    
     func updateView() {
         guard pic != nil else { return }
         imageView.af.setImage(withURL: pic!, placeholderImage: .none)
@@ -47,14 +47,9 @@ class InfoViewController: UIViewController {
     }
 
     @objc func valueDidChange(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            textLabel.text = selectorText[0]
-        case 1:
-            textLabel.text = selectorText[1]
-        case 2:
-            textLabel.text = selectorText[2]
-        default:
+        if selectorText != nil {
+            textLabel.text = selectorText![sender.selectedSegmentIndex]
+        } else {
             textLabel.text = ""
         }
     }
